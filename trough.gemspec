@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.0"
   s.add_dependency "cancancan"
   s.add_dependency "refile"
+  s.add_dependency "refile-s3"
+  s.add_dependency "aws-sdk"
 
   s.add_development_dependency "sqlite3"
 end

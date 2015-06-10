@@ -1,7 +1,10 @@
 =semantic_form_for Trough::Document.new, url: documents_path, remote: true do |form|
   =hidden_field_tag "authenticity_token", form_authenticity_token
   =form.inputs do
-    =form.attachment_field :file
+    =form.attachment_field :file, direct: true, presigned: true
+    .progress
+      .progress-bar{role: "progressbar", style: "width: 0%;"}
+
     =form.input :url, label: 'Set file name'
   =form.actions do
     =form.action :submit, label: 'Upload file', button_html: { class: 'btn btn-primary' }
