@@ -2,4 +2,7 @@ $('#document-form').html("<%= escape_javascript render 'form' %>");
 <% if @document.errors.empty? %>
   $('.document-row:last').after("<%= escape_javascript render 'document', :document => @document %>");
   $('#document_url').val('');
+  $form = $("form#new_document");
+  $file = $("input[data-as='file']", $form).show();
+  $(".js-file-uploaded").hide();
 <% end %>

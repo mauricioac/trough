@@ -13,9 +13,11 @@ var attachments = (function () {
   });
 
   $(document).on("upload:complete", "form#new_document", function(event) {
-    form = $(event.currentTarget)
-    $("input[data-as='file']", form).val('')
-    $('#document_submit_action', form).removeAttr('disabled');
+    $form = $(event.currentTarget)
+    $file = $("input[data-as='file']", $form).val('')
+    $file.hide();
+    $(".js-file-uploaded").show();
+    $('#document_submit_action', $form).removeAttr('disabled');
   });
 
 })();
