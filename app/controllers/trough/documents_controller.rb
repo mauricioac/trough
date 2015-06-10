@@ -13,13 +13,7 @@ module Trough
     end
 
     def create
-      if @document.save
-        if @document.url.blank?
-          f = @document.attachment.name
-          f.slice! ".#{@document.attachment.ext}"
-          @document.update(slug: nil, url: f)
-        end
-      end
+      @document.save
       logger.info @document.errors.messages
     end
 
@@ -42,7 +36,7 @@ module Trough
 
     private
     def document_params
-      params.require(:document).permit(:file, :url)
+      params.require(:document).permit(:file, :slug)
     end
   end
 end
