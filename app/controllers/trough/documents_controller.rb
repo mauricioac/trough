@@ -42,7 +42,7 @@ module Trough
 
     private
     def document_params
-      params.require(:document).permit(:attachment_uid, :attachment, :url)
+      params.require(:document).permit(:file, :url)
     end
   end
 end

@@ -1,5 +1,6 @@
 -doc_link = document_url(document)
-%tr.document-row{data: {document_id: document.id, filter: document.slug.first.upcase}}
+%tr.document-row 
+  /{data: {document_id: document.id, filter: document.slug.first.upcase}}
   %td.documents-name-column
     =document.slug
   %td.documents-link-column

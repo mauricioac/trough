@@ -1,13 +1,8 @@
 module Trough
   class Document < ActiveRecord::Base
   
-    extend(FriendlyId)
-    send(:file_accessor, :attachment)
-    send(:friendly_id, :slug_candidates, use: :slugged)
-    validates :attachment, presence: true
-    # validates :url, uniqueness: true, unless: Proc.new { |a| a.url.blank? }
-    validate :file_not_in_blacklist
-
+    # Define a refile attachment
+    attachment :file
 
     class << self
       def blacklist
