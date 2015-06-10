@@ -1,0 +1,36 @@
+:javascript
+  $(document).ready(function() {
+    $('#alpha-filter').change(function() {
+      var value = $(this).val();
+      if (value == 'All')
+      {
+        $('.document-row').show();
+      }
+      else 
+      {
+        $('.document-row').hide();
+        $('.document-row[data-filter="'+ value +'"]').show();
+      }
+    });
+  });
+
+.container.cms-main#cms-style-container
+  =render('pig/content_packages/sitemap_header', header_title: 'Documents')
+  .row
+    .col-xs-12.documents
+      #document-form.documents-form
+        =render('form')
+
+      .documents-list-holder
+        %table.cms-table
+          %thead
+            %tr
+              %th.documents-name-column Name
+              %th.documents-link-column link
+              %th.documents-delete-column Delete
+              %th
+                .sitemap-filter 
+                  =select_tag 'alpha-filter', options_for_select(['All'] + ('0'..'9').to_a + ('A'..'Z').to_a), class: 'noselectpicker'
+          %tbody
+            -@documents.each do |document|
+              =render('document', document: document)

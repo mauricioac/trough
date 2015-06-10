@@ -1,0 +1,124 @@
+body.controller_documents {
+  background: #f1f1f1;
+  color: #555;
+}
+
+#document-form {
+  margin-bottom: 15px;
+  overflow: auto;
+  position: relative;
+
+  .form-group {
+    overflow: auto;
+  }
+
+  // @include media-query(sm) {
+  //   .inputs {
+  //     width: 70%;
+  //     float: left;
+  //   }
+  // 
+  //   label {
+  //     float: left;
+  //     width: 30%;
+  //     max-width: 120px;
+  //   }
+  // 
+  //   .form-wrapper {
+  //     width: 70%;
+  //     float: left;
+  //   }
+  // 
+  //   .form-actions {
+  //     width: 30%;
+  //     position: absolute;
+  //     bottom: 36px;
+  //     right: 30px;
+  //   }
+  // }
+}
+
+.documents-form, .documents-list-holder {
+  background:white;
+  border-radius: 3px;
+  padding: 30px;
+}
+
+#document_attachment {
+  font-size: 14px;
+}
+
+#new_document {
+  .error {
+    label {
+      color: red;
+    }
+
+    .form-control {
+      border-color: red;
+    }
+
+    .help-block {
+      opacity: 1;
+      height: auto;
+      padding: 8px;
+    }
+  }
+}
+
+
+.documents-list-holder {
+  font-size: 14px;
+
+  table {
+    width: 100%;
+  }
+
+  th {
+    border-bottom: 2px solid #DDDDDD;
+  }
+}
+
+.documents-name-column {
+  width: 25%;
+  text-align: left;
+  padding: 10px 10px 10px 0;
+}
+
+.documents-link-column {
+  width: 70%;
+  text-align: left;
+  padding: 10px;
+}
+
+.documents-delete-column {
+  position: relative;
+  text-align: center;
+  width: 5%;
+}
+
+.document-row {
+  position: relative;
+  padding: 8px 20px 8px 4px;
+  margin: 0;
+
+  &:hover, &:focus {
+    background: #f1f1f1;
+  }
+}
+
+.document-delete {
+  text-indent: -999999px;
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  text-align: center;
+  width: 100%;
+
+  &:before {
+    text-indent: 0;
+    position: absolute;
+    right: 0;
+    width: 100%
+  }
+}

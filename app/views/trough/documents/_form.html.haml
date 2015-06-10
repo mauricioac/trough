@@ -1,0 +1,7 @@
+=semantic_form_for Trough::Document.new, url: documents_path, remote: true do |form|
+  =hidden_field_tag "authenticity_token", form_authenticity_token
+  =form.inputs do
+    =form.input :attachment, as: :file, label: 'Select file'
+    =form.input :url, label: 'Set file name'
+  =form.actions do
+    =form.action :submit, label: 'Upload file', button_html: { class: 'btn btn-primary' }

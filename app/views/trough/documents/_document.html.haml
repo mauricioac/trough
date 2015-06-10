@@ -1,0 +1,8 @@
+-doc_link = document_url(document)
+%tr.document-row{data: {document_id: document.id, filter: document.slug.first.upcase}}
+  %td.documents-name-column
+    =document.slug
+  %td.documents-link-column
+    =link_to(doc_link, doc_link, class: 'document-link')
+  %td.documents-delete-column
+    =link_to('Delete', document_path(document), method: :delete, remote: true, class: 'fa fa-trash-o document-delete', data: {confirm: 'Are you sure? This cannot be undone'} )

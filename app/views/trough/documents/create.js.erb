@@ -1,0 +1,9 @@
+<% if remotipart_submitted? %>
+    $('#document-form').html("<%= escape_javascript render 'documents/form' %>");
+  <% if @document.errors.empty? %>
+    $('.document-row:last').after("<%= escape_javascript render 'documents/document', :document => @document %>");
+    $('#document_url').val('');
+  <% end %>
+<% else %>
+  $('#document-form').html("<%= escape_javascript render 'documents/form' %>");
+<% end %>
