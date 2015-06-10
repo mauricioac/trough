@@ -12,8 +12,10 @@ var attachments = (function () {
     $('.progress-bar', event.currentTarget).css('width', percentage+'%');
   });
 
-  $(document).on("upload:complete", "form#new_document", function() {
-    
+  $(document).on("upload:complete", "form#new_document", function(event) {
+    form = $(event.currentTarget)
+    $("input[data-as='file']", form).val('')
+    $('#document_submit_action', form).removeAttr('disabled');
   });
 
 })();

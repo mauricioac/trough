@@ -37,11 +37,12 @@ module Trough
     
     def set_slug
       escaped_name = file_filename ? file_filename.downcase.gsub(/[^0-9a-z. ]/, '').squish.gsub(' ', '-') : 'temporary'
-      temp_slug = escaped_name
+      temp_slug = escaped_name.dup
       suffix = 1
       while Document.where(slug: temp_slug).present?
-        # Ensure the suffx comes before the file extension
-        temp_slug = escaped_name.insert(escaped_name.rindex('.') || escaped_name.length-1, "-#{suffix}")
+        temp_slug = escaped_name.dup
+        # Ensure the suffix comes before the file extension
+        temp_slug.insert(escaped_name.rindex('.') || escaped_name.length-1, "-#{suffix}")
         suffix += 1
       end
       write_attribute(:slug, temp_slug)
