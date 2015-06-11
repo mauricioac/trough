@@ -8,6 +8,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.integer :file_size
       t.string :file_content_type
       t.string :md5
+      t.string :s3_url
 
       t.timestamps
     end

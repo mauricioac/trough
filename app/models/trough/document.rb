@@ -8,6 +8,7 @@ module Trough
     # Define a refile attachment
     attachment :file
     before_validation :set_md5, :set_slug
+    after_save :set_content_disposition,  :set_s3_url
 
     class << self
       def blacklist
@@ -47,9 +48,41 @@ module Trough
       end
       write_attribute(:slug, temp_slug)
     end
-    
+
     def set_md5
       write_attribute(:md5, Digest::MD5.file(file.to_io).to_s)
+    end
+
+    def to_param
+      slug.presence || id
+    end
+
+    def set_s3_url
+      object = get_s3_object(file.id)
+      update_column :s3_url, object.public_url
+    end
+
+    def set_content_disposition
+      object = get_s3_object(file.id)
+      object.copy_from(
+        copy_source: [object.bucket.name, object.key].join('/'),
+        metadata_directive: 'REPLACE',
+        metadata: object.metadata,
+        content_disposition: "attachment\; filename='#{file_filename}'"
+      )
+    end
+
+    private
+
+    def get_s3_object(id)
+      client = Aws::S3::Client.new(
+      access_key_id: ENV["S3_ACCESS_KEY_ID"],
+      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+      region: ENV['S3_REGION']
+      )
+      resource = Aws::S3::Resource.new(client: client)
+      bucket = resource.bucket ENV['S3_BUCKET_NAME']
+      bucket.object(['store', file_id].join('/'))
     end
 
   end

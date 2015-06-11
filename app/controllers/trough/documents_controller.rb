@@ -30,8 +30,8 @@ module Trough
     end
 
     def show
-      @document = Document.friendly.find(params[:id])
-      send_file @document.attachment.file, filename: "#{@document.url}.#{@document.attachment.ext}"
+      @document = Document.find_by(slug: params[:id])
+      redirect_to @document.s3_url
     end
 
     private
