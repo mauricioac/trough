@@ -2,7 +2,6 @@
   =hidden_field_tag "authenticity_token", form_authenticity_token
   =form.inputs do
     =form.attachment_field :file, direct: true, presigned: true
-    .js-file-uploaded{style: "display:none"} File Uploaded!
       
     .progress
       .progress-bar{role: "progressbar", style: "width: 0%;"}

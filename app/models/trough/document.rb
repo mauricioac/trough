@@ -2,12 +2,12 @@ module Trough
   class Document < ActiveRecord::Base
   
     validates :file, presence: true
-    validates :slug, uniqueness: true
+    validates :slug, :md5, uniqueness: true
     # validate :file_not_in_blacklist
   
     # Define a refile attachment
     attachment :file
-    before_save :set_slug
+    before_validation :set_md5, :set_slug
 
     class << self
       def blacklist
@@ -48,5 +48,9 @@ module Trough
       write_attribute(:slug, temp_slug)
     end
     
+    def set_md5
+      write_attribute(:md5, Digest::MD5.file(file.to_io).to_s)
+    end
+
   end
 end

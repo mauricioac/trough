@@ -7,6 +7,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.string :file_filename
       t.integer :file_size
       t.string :file_content_type
+      t.string :md5
 
       t.timestamps
     end
