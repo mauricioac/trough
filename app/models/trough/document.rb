@@ -49,7 +49,7 @@ module Trough
     end
 
     def set_md5
-      write_attribute(:md5, Digest::MD5.file(file.to_io).to_s)
+      write_attribute(:md5, Digest::MD5.file(file.download).to_s)
     end
 
     def to_param
@@ -81,7 +81,7 @@ module Trough
       )
       resource = Aws::S3::Resource.new(client: client)
       bucket = resource.bucket ENV['S3_BUCKET_NAME']
-      bucket.object(['store', file_id].join('/'))
+      bucket.object(['store', id].join('/'))
     end
 
   end
