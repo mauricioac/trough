@@ -34,6 +34,11 @@ module Trough
       redirect_to @document.s3_url
     end
 
+    def modal
+      @documents = Document.all
+      render :layout => false
+    end
+
     private
     def document_params
       params.require(:document).permit(:file, :slug, :description, :uploader)
