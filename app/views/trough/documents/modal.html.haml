@@ -1,0 +1,6 @@
+.modal-header
+  Documents
+.modal-body.ui-front
+  =select_tag "document", options_from_collection_for_select(@documents, "id", "slug"), class: "autocomplete-select"
+.modal-footer
+  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close

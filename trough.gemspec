@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "refile"
   s.add_dependency "refile-s3"
   s.add_dependency "aws-sdk"
+  s.add_dependency 'formtastic-bootstrap', '~> 3.0'
 
   s.add_development_dependency "sqlite3"
 end
