@@ -1,10 +1,9 @@
 module Trough
   class Document < ActiveRecord::Base
-  
+
     validates :file, presence: true
     validates :slug, :md5, uniqueness: true
-    # validate :file_not_in_blacklist
-  
+
     # Define a refile attachment
     attachment :file
     before_validation :set_md5, :set_slug

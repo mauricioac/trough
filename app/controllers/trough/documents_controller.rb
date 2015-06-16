@@ -36,7 +36,7 @@ module Trough
 
     private
     def document_params
-      params.require(:document).permit(:file, :slug)
+      params.require(:document).permit(:file, :slug, :description, :uploader)
     end
   end
 end
