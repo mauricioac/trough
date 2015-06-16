@@ -2,7 +2,7 @@ module Trough
   class Engine < ::Rails::Engine
     isolate_namespace Trough
 
-    config.after_initialize do
+    config.to_prepare do
       if defined? ::Pig
         ::Pig::ContentAttribute.class_eval do
           class << self
