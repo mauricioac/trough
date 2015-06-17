@@ -6,8 +6,8 @@ module Trough
 
     if GemHelper.gem_loaded? :pig
       belongs_to :content_package, class_name: '::Pig::ContentPackage', foreign_key: 'pig_content_package_id'
-      validates :content_package, presence: true
-      validates :document, uniqueness: { scope: :content_package }
+      validates :content_package, presence: { allow_nil: true }
+      validates :document, uniqueness: { scope: :content_package, allow_nil: true }
     end
 
     def activate!
@@ -18,5 +18,8 @@ module Trough
       update_attribute(:active, false)
     end
 
+    def unlink_content_package!
+      update_attributes(active: false, pig_content_package_id: nil)
+    end
   end
 end

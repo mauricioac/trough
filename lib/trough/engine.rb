@@ -17,7 +17,7 @@ module Trough
           include Pig::Hooks
 
           after_update :update_document_usages
-          #TODO Handle ContentPackage deletion
+          after_destroy :unlink_document_usages
         end
         ::Pig.setup do |config|
           config.additional_stylesheets << 'trough/application'
