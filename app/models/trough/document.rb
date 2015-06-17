@@ -1,6 +1,9 @@
 module Trough
   class Document < ActiveRecord::Base
 
+
+    has_many :document_usages
+
     validates :file, presence: true
     validates :slug, :md5, uniqueness: true
 
