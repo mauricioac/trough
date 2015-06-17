@@ -9,6 +9,14 @@ module Trough
         changed_chunks.each do |changed_chunk|
           send("determine_#{changed_chunk.content_attribute.field_type}_change", changed_chunk)
         end
+
+        if deleted_at_changed?
+          if deleted_at.present?
+            DocumentUsage.where(pig_content_package_id: id).each(&:deactivate!)
+          else
+            DocumentUsage.where(pig_content_package_id: id).each(&:activate!)
+          end
+        end
       end
 
       def determine_document_change(content_chunk)
@@ -27,6 +35,10 @@ module Trough
       def determine_rich_content_change(_content_chunk)
         # TODO: make this look at the old and new values, find additions / removals and
         # create / update DocumentUsage as appropriate
+      end
+
+      def unlink_document_usages
+        DocumentUsage.where(pig_content_package_id: id).each(&:unlink_content_package!)
       end
     end
   end
