@@ -4,8 +4,8 @@ module Trough
 
     require_relative 'helpers/gem_helper'
 
-    config.to_prepare do
-      if GemHelper.gem_loaded? :pig
+    if GemHelper.gem_loaded? :pig
+      config.to_prepare do
         require_relative 'pig/hooks'
 
         ::Pig::ContentAttribute.class_eval do
@@ -19,6 +19,9 @@ module Trough
           after_update :update_document_usages
           after_destroy :unlink_document_usages
         end
+      end
+
+      config.after_initialize do
         ::Pig.setup do |config|
           config.additional_stylesheets << 'trough/application'
           config.additional_javascripts << 'trough/application'

@@ -1,0 +1,8 @@
+<% if @document.errors.empty? %>
+  RemoteModal.documentSelected(<%= @document.id %>);
+<% else %>
+  <% if @document.errors[:md5]  %>
+    $('#document-form').html("<%= escape_javascript render 'form' %>");
+    alert("Duplicate File!")
+  <% end %>
+<% end %>
