@@ -11,6 +11,7 @@ module Trough
         end
         Pig.setup do |config|
           config.additional_stylesheets << 'trough/application'
+          config.additional_javascripts << 'trough/application'
         end
       end
     end
