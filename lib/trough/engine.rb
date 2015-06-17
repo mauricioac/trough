@@ -2,8 +2,10 @@ module Trough
   class Engine < ::Rails::Engine
     isolate_namespace Trough
 
+    require_relative 'helpers/gem_helper'
+
     config.to_prepare do
-      if defined? ::Pig
+      if GemHelper.gem_loaded? :pig
         ::Pig::ContentAttribute.class_eval do
           class << self
             prepend ::Trough::ExtraPigFieldTypes
