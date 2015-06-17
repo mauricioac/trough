@@ -36,7 +36,15 @@ module Trough
 
     def modal
       @documents = Document.all
+      @document = Document.new
       render :layout => false
+    end
+
+    def modal_create
+      @document = Document.new(document_params)
+      @document.uploader = current_user
+      @document.save
+      logger.info @document.errors.messages
     end
 
     private

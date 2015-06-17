@@ -1,6 +1,15 @@
 .modal-header
-  Documents
+  %a.close.btn-link{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+    %span &times;
+  %h4.modal-title Documents
 .modal-body.ui-front
+  %h3 Choose an existing file
   =select_tag "document", options_from_collection_for_select(@documents, "id", "slug"), class: "autocomplete-select"
-.modal-footer
-  %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+  %h3 Or upload a new file
+  =form_for @document, url: modal_create_documents_path, id: 'new_document', remote: true  do |form|
+    =form.attachment_field :file, direct: true, presigned: true
+    .progress
+      .progress-bar{role: "progressbar", style: "width: 0%;"}
+    =form.text_area :description, style: 'display:none', id: "document_description_input"
+    .modal-footer
+      =form.submit "Upload file", id: 'document_submit_action', class: 'btn btn-primary', disabled: true
