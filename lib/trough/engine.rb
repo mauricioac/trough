@@ -9,6 +9,9 @@ module Trough
             prepend ::Trough::ExtraPigFieldTypes
           end
         end
+        Pig.setup do |config|
+          config.additional_stylesheets << 'trough/application'
+        end
       end
     end
 
