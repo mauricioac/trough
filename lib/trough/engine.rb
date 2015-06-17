@@ -6,12 +6,20 @@ module Trough
 
     config.to_prepare do
       if GemHelper.gem_loaded? :pig
+        require_relative 'pig/hooks'
+
         ::Pig::ContentAttribute.class_eval do
           class << self
             prepend ::Trough::ExtraPigFieldTypes
           end
         end
-        Pig.setup do |config|
+        ::Pig::ContentPackage.class_eval do
+          include Pig::Hooks
+
+          after_update :update_document_usages
+          #TODO Handle ContentPackage deletion
+        end
+        ::Pig.setup do |config|
           config.additional_stylesheets << 'trough/application'
           config.additional_javascripts << 'trough/application'
         end
