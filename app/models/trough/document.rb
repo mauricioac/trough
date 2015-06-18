@@ -73,6 +73,12 @@ module Trough
       )
     end
 
+    def create_usage!(content_package_id)
+      document_usage = DocumentUsage.find_or_initialize_by(trough_document_id: self.id, pig_content_package_id: content_package_id)
+      document_usage.active = true
+      document_usage.save
+    end
+
     private
 
     def get_s3_object(id)
