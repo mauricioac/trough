@@ -5,5 +5,9 @@
     =document.slug
   %td.documents-link-column
     =link_to(doc_link, doc_link, class: 'document-link')
+  %td.documents-usage-column
+    =document.active_document_usage_count
+  %td.documents-downloads-column 
+    =document.downloads_count || 0
   %td.documents-delete-column
     =link_to('Delete', document_path(document), method: :delete, remote: true, class: 'fa fa-trash-o document-delete', data: {confirm: 'Are you sure? This cannot be undone'} )
