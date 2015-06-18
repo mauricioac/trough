@@ -1,4 +1,5 @@
 var RemoteModal = (function () {
+  "use strict";
   var openingLink, modal;
 
   $(document).ready(function(){
@@ -23,18 +24,33 @@ var RemoteModal = (function () {
         $('.modal-content', modal).html(data);
         $( ".autocomplete-select", modal).combobox({
           select: function(event, ui) {
-            documentSelected(ui.item.value);
+            var item = JSON.parse(ui.item.value);
+            documentSelected(item.id, item.url, item.name);
           }
         });
       });
 
     });
+
+    $('.js-trough-remove').on('click', function (event) {
+      removeDocument($(event.currentTarget).parents('.document.input').find('input'));
+    });
   });
 
-  function documentSelected(document_id) {
-    openingLink.siblings('input').val(document_id);
-    openingLink.hide();
-    openingLink.siblings('.document-link').show();
+  function removeDocument(input) {
+    input.val('');
+    $('.js-trough-document-editor').hide();
+    $('.js-trough-document-chooser').show();
+  }
+
+  function documentSelected(document_id, document_url, document_name) {
+    var document_input = openingLink.parents('.document.input');
+    document_input.find('input').val(document_id);
+    document_input.find('.js-trough-document-editor').show();
+    document_input.find('.js-trough-document-chooser').hide();
+    document_input.find('.js-trough-document-link').attr('href', document_url);
+    document_input.find('.js-trough-document-name').html(document_name);
+
     modal.modal("hide");
   }
 

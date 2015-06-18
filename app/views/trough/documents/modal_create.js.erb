@@ -1,8 +1,8 @@
 <% if @document.errors.empty? %>
-  RemoteModal.documentSelected(<%= @document.id %>);
+  RemoteModal.documentSelected(<%= @document.id %>, "<%= Trough::Engine.routes.url_helpers.document_path(@document) %>", "<%= @document.file_filename %>");
 <% else %>
   <% if @document.errors[:md5]  %>
     $('#document-form').html("<%= escape_javascript render 'form' %>");
-    alert("Duplicate File!")
+    alert("Duplicate File!");
   <% end %>
 <% end %>
