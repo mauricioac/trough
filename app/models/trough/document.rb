@@ -1,8 +1,7 @@
 module Trough
   class Document < ActiveRecord::Base
 
-
-    has_many :document_usages
+    has_many :document_usages, foreign_key: "trough_document_id"
 
     validates :file, presence: true
     validates :slug, :md5, uniqueness: true

@@ -6,7 +6,12 @@ module Trough
 
     def index
       @document = Document.new
-      @documents = Document.all.order(:slug)
+      @documents = Document.
+        select("trough_documents.*, 
+               (SELECT COUNT(*) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id AND trough_document_usages.active = 't')) AS active_document_usage_count,
+               (SELECT SUM(trough_document_usages.download_count) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id)) AS downloads_count").
+        all.
+        order(:slug)
     end
 
     def new

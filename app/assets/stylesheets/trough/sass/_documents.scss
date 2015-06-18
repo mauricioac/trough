@@ -83,12 +83,20 @@ body.controller_documents {
   width: 25%;
   text-align: left;
   padding: 10px 10px 10px 0;
+  word-break: break-word;
 }
 
 .documents-link-column {
-  width: 70%;
+  width: 60%;
   text-align: left;
   padding: 10px;
+  word-break: break-word;
+}
+
+.documents-usage-column, .documents-downloads-column {
+  position: relative;
+  text-align: center;
+  width: 5%;
 }
 
 .documents-delete-column {
