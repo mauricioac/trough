@@ -4,7 +4,7 @@
   %h4.modal-title Documents
 .modal-body.ui-front
   %h3 Choose an existing file
-  =select_tag "document", options_from_collection_for_select(@documents, "id", "slug"), class: "autocomplete-select"
+  =select_tag "document", options_for_select(@documents.collect{|doc| [doc.slug, {id: doc.id, url: document_path(doc), name: doc.file_filename}.to_json] }), class: "autocomplete-select"
   %h3 Or upload a new file
   =form_for @document, url: modal_create_documents_path, id: 'new_document', remote: true  do |form|
     =form.attachment_field :file, direct: true, presigned: true

@@ -130,3 +130,35 @@ body.controller_documents {
     width: 100%
   }
 }
+
+.trough-document-link {
+  border: 1px solid #555;
+  border-radius: 4px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 0.88888889em 0.88888889em 0.88888889em 4em;
+  position: relative;
+  line-height: 1.2;
+  margin: 0.66666667em 0;
+  width: auto;
+  background-color: #fff;
+  -webkit-transition: border-color 0.3s ease-in;
+          transition: border-color 0.3s ease-in;
+  .fa {
+    font-size: 40px;
+    position: absolute;
+    left: 0.4em;
+    color: #555;
+    -webkit-transition: color 0.3s ease-in;
+            transition: color 0.3s ease-in;
+  }
+  .document-link__file-type {
+    font-size: 13px;
+    display: block;
+    text-align: left;
+  }
+}
+
+.hide {
+  display: none;
+}
