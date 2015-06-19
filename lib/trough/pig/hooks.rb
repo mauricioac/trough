@@ -28,7 +28,7 @@ module Trough
           document_usage.deactivate!
         end
         if content_chunk.value.present?
-          document = Document.find(content_chunk)
+          document = Document.find(content_chunk.value)
           document.create_usage!(self.id) if document
         end
       end

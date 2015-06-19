@@ -41,7 +41,15 @@ module Trough
     end
 
     def show
+      uri = URI(request.referer)
       @document = Document.find_by(slug: params[:id])
+      if GemHelper.gem_loaded?(:pig)
+        permalink = ::Pig::Permalink.find_from_url(uri.path)
+        if permalink
+          usage = DocumentUsage.where(document:@document, pig_content_package_id: permalink.resource_id).first
+          usage.update_attribute(:download_count, usage.download_count + 1) if usage
+        end
+      end
       redirect_to @document.s3_url
     end
 
