@@ -10,6 +10,10 @@ module Trough
       validates :document, uniqueness: { scope: :content_package, allow_nil: true }
     end
 
+    def self.active
+      where(active: true)
+    end
+
     def activate!
       update_attribute(:active, true)
     end

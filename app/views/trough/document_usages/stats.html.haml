@@ -1,0 +1,12 @@
+%table#usage_link_list.cms-table
+  %thead
+    %tr
+      %th Page
+      %th Download Count
+  %tbody
+    - @document_usages.each do |document_usage|
+      %tr
+        %td
+          = document_usage.content_package.name
+        %td
+          = document_usage.download_count

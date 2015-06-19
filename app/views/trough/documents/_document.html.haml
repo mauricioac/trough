@@ -6,8 +6,16 @@
   %td.documents-link-column
     =link_to(doc_link, doc_link, class: 'document-link')
   %td.documents-usage-column
-    =document.active_document_usage_count
-  %td.documents-downloads-column 
-    =document.downloads_count || 0
+    - if document.active_document_usage_count > 0
+      %a(href="#" data-modal-url="#{document_links_path(document.id)}" data-document-usage-links)
+        = document.active_document_usage_count
+    - else
+      = document.active_document_usage_count
+  %td.documents-downloads-column
+    - if document.downloads_count
+      %a(href="#" data-modal-url="#{document_stats_path(document.id)}" data-document-usage-stats)
+        = document.downloads_count
+    - else
+      0
   %td.documents-delete-column
     =link_to('Delete', document_path(document), method: :delete, remote: true, class: 'fa fa-trash-o document-delete', data: {confirm: 'Are you sure? This cannot be undone'} )
