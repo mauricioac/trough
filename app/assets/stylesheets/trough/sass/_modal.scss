@@ -1,4 +1,5 @@
 .trough-modal {
+  z-index: 1054 !important;
   ul.ui-autocomplete {
     position: absolute !important;
   }
@@ -18,5 +19,8 @@
   }
   .modal-footer {
     overflow: hidden;
+  }
+  + .modal-backdrop {
+    z-index: 1053 !important;
   }
 }
