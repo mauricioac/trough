@@ -1,0 +1,10 @@
+%table#usage_link_list.cms-table
+  %thead
+    %tr
+      %th Pages
+  %tbody
+    - @document_usages.each do |document_usage|
+      %tr
+        %td
+          = document_usage.content_package.name
+

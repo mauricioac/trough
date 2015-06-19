@@ -4,6 +4,8 @@ Trough::Engine.routes.draw do
       get 'modal'
       post 'modal_create'
     end
+    get 'links' => 'document_usages#links'
+    get 'stats' => 'document_usages#stats'
   end
 
   get '/*id', to: 'documents#show', format: false

@@ -36,3 +36,21 @@
           %tbody
             -@documents.each do |document|
               =render('document', document: document)
+
+#usageLinks.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Document Usage
+      .modal-body
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+#usageStats.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h4.modal-title Document Downloads
+      .modal-body
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
