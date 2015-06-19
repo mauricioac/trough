@@ -25,6 +25,8 @@ module Trough
         ::Pig.setup do |config|
           config.additional_stylesheets << 'trough/application'
           config.additional_javascripts << 'trough/application'
+          config.basic_redactor_plugins << 'documentPicker'
+          config.redactor_plugins << 'documentPicker'
         end
       end
     end
