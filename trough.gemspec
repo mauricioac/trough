@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Trough::VERSION
   s.authors     = ["Greg Woodcock"]
   s.email       = ["greg@yoomee.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Trough."
-  s.description = "TODO: Description of Trough."
+  s.homepage    = "http://www.yoomee.com"
+  s.summary     = "Trough is a great document manager"
+  s.description = "Oink Oink"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
