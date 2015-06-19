@@ -1,5 +1,5 @@
 <% if @document.errors.empty? %>
-  RemoteModal.documentSelected(<%= @document.id %>, "<%= Trough::Engine.routes.url_helpers.document_path(@document) %>", "<%= @document.file_filename %>");
+  RemoteModal.completed({ id: <%= @document.id %>, url: "<%= Trough::Engine.routes.url_helpers.document_path(@document) %>", name: "<%= @document.file_filename %>" });
 <% else %>
   <% if @document.errors[:md5]  %>
     $('#document-form').html("<%= escape_javascript render 'form' %>");

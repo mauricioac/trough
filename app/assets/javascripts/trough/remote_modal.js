@@ -1,41 +1,36 @@
 var RemoteModal = (function () {
   "use strict";
-  var openingLink, modal;
+  var openingLink, modal, onCompleted;
 
   $(document).ready(function(){
     $('.js-open-trough-modal').on('click', function (event) {
-
-      if ($(".js-trough-modal").length === 0) {
-        var modalHtml = "<div class='modal fade trough-modal js-trough-modal' id='trough-modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'> \
-          <div class='modal-dialog'> \
-            <div class='modal-content'> \
-            </div> \
-          </div> \
-        </div>";
-        $('body').append(modalHtml);
-      }
-      openingLink = $(event.currentTarget);
-      $('#trough-modal').modal('show');
+      show(function(document) {
+        documentSelected(document.id, document.url, document.name);
+      });
     });
 
-    $('body').on('show.bs.modal', '#trough-modal', function(event){
+    $('body').on('shown.bs.modal', '#trough-modal', function(event){
       modal = $(event.currentTarget);
       $.get('/documents/modal', function(data){
         $('.modal-content', modal).html(data);
         $( ".autocomplete-select", modal).combobox({
           select: function(event, ui) {
-            var item = JSON.parse(ui.item.value);
-            documentSelected(item.id, item.url, item.name);
+            var document = JSON.parse(ui.item.value);
+            completed(document);
           }
         });
       });
-
     });
 
     $('.js-trough-remove').on('click', function (event) {
       removeDocument($(event.currentTarget).parents('.document.input').find('input'));
     });
   });
+
+  function completed(document) {
+    modal.modal('hide');
+    onCompleted(document);
+  }
 
   function removeDocument(input) {
     input.val('');
@@ -50,12 +45,26 @@ var RemoteModal = (function () {
     document_input.find('.js-trough-document-chooser').hide();
     document_input.find('.js-trough-document-link').attr('href', document_url);
     document_input.find('.js-trough-document-name').html(document_name);
+  }
 
-    modal.modal("hide");
+  function show(callback) {
+    onCompleted = callback;
+    if ($(".js-trough-modal").length === 0) {
+      var modalHtml = "<div class='modal fade trough-modal js-trough-modal' id='trough-modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'> \
+        <div class='modal-dialog'> \
+          <div class='modal-content'> \
+          </div> \
+        </div> \
+      </div>";
+      $('body').append(modalHtml);
+    }
+    openingLink = $(event.currentTarget);
+    $('#trough-modal').modal('show');
   }
 
   return {
-    documentSelected: documentSelected
+    completed: completed,
+    show: show
   };
 
 })();
