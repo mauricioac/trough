@@ -23,6 +23,7 @@ module Trough
     end
 
     def create
+      @new_document = true
       @document.save
       logger.info @document.errors.messages
     end
