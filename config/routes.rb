@@ -3,6 +3,8 @@ Trough::Engine.routes.draw do
     collection do
       get 'modal'
       post 'modal_create'
+      get 'search'
+      get 'autocomplete'
     end
     get 'links' => 'document_usages#links'
     get 'stats' => 'document_usages#stats'

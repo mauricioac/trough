@@ -4,14 +4,19 @@ module Trough
     load_and_authorize_resource
     skip_load_resource :only => [:show, :destroy]
 
+    before_action :prepare_new_document, only: [:index, :search]
+
     def index
-      @document = Document.new
-      @documents = Document.
-        select("trough_documents.*, 
-               (SELECT COUNT(*) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id AND trough_document_usages.active = 't')) AS active_document_usage_count,
-               (SELECT SUM(trough_document_usages.download_count) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id)) AS downloads_count").
-        all.
-        order(:slug)
+      @documents = Document.include_meta.all.order(:slug)
+    end
+
+    def search
+      @documents = Document.include_meta.search(params[:term]).order(:slug)
+      render :index
+    end
+
+    def autocomplete
+      render json: Document.search(params[:term]).pluck(:slug).to_json
     end
 
     def new
@@ -53,8 +58,13 @@ module Trough
     end
 
     private
-    def document_params
-      params.require(:document).permit(:file, :slug, :description, :uploader)
-    end
+
+      def document_params
+        params.require(:document).permit(:file, :slug, :description, :uploader)
+      end
+
+      def prepare_new_document
+        @document = Document.new
+      end
   end
 end

@@ -1,0 +1,8 @@
+= form_tag search_documents_path, method: :get, 
+  enforce_utf8: false,
+  id: 'document-search' do
+  %fieldset.inputs
+    = text_field_tag :term, params[:term], 
+      data: {source: autocomplete_documents_path},
+      autocomplete: 'off',
+      placeholder: 'Quick find: start typing the name of a document'
