@@ -2,7 +2,7 @@ module Trough
   class DocumentsController < ApplicationController
 
     load_and_authorize_resource
-    skip_load_resource :only => [:show, :destroy]
+    skip_load_resource :only => [:show, :destroy, :info]
 
     before_action :prepare_new_document, only: [:index, :search]
 
@@ -40,8 +40,13 @@ module Trough
     def update
     end
 
+    def info
+      @document = Document.find_by(slug: params[:id])
+      render json: @document, include: { document_usages: { include: { content_package: { only: [:name] } } } }
+    end
+
     def show
-      uri = URI(request.referer)
+      uri = URI(request.referer || "")
       @document = Document.find_by(slug: params[:id])
       if GemHelper.gem_loaded?(:pig)
         permalink = ::Pig::Permalink.find_from_url(uri.path)

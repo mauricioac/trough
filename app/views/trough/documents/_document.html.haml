@@ -1,24 +1,21 @@
 -doc_link = document_url(document)
-%tr.document-row 
-  /{data: {document_id: document.id, filter: document.slug.first.upcase}}
+%tr.document-row{ data: { document_info_modal: document.slug }}
   %td.documents-name-column
     =document.slug
   %td.documents-link-column
-    =link_to(doc_link, doc_link, class: 'document-link')
+    =doc_link
   %td.documents-usage-column
     -if @new_document
       0
     - elsif document.active_document_usage_count > 0
-      %a(href="#" data-modal-url="#{document_links_path(document.id)}" data-document-usage-links)
-        = document.active_document_usage_count
+      = document.active_document_usage_count
     - else
       = document.active_document_usage_count
   %td.documents-downloads-column
     -if @new_document
       0
     - elsif document.downloads_count
-      %a(href="#" data-modal-url="#{document_stats_path(document.id)}" data-document-usage-stats)
-        = document.downloads_count
+      = document.downloads_count
     - else
       0
   %td.documents-delete-column
