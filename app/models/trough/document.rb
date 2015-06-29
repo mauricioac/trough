@@ -49,7 +49,7 @@ module Trough
     end
 
     def set_md5
-      write_attribute(:md5, Digest::MD5.file(file.download).to_s)
+      write_attribute(:md5, Digest::MD5.file(file.download).to_s) if file
     end
 
     def to_param
@@ -57,31 +57,37 @@ module Trough
     end
 
     def set_s3_url
-      object = get_s3_object(file.id)
-      update_column :s3_url, object.public_url
+      unless Rails.env.test?
+        object = get_s3_object(file.id)
+        update_column :s3_url, object.public_url
+      end
     end
 
     def set_content_disposition
-      object = get_s3_object(file.id)
-      object.copy_from(
-        copy_source: [object.bucket.name, object.key].join('/'),
-        metadata_directive: 'REPLACE',
-        metadata: object.metadata,
-        content_disposition: "attachment\; filename='#{file_filename}'"
-      )
+      unless Rails.env.test?
+        object = get_s3_object(file.id)
+        object.copy_from(
+          copy_source: [object.bucket.name, object.key].join('/'),
+          metadata_directive: 'REPLACE',
+          metadata: object.metadata,
+          content_disposition: "attachment\; filename='#{file_filename}'"
+        )
+      end
     end
 
     private
 
     def get_s3_object(id)
-      client = Aws::S3::Client.new(
-      access_key_id: ENV["S3_ACCESS_KEY_ID"],
-      secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
-      region: ENV['S3_REGION']
-      )
-      resource = Aws::S3::Resource.new(client: client)
-      bucket = resource.bucket ENV['S3_BUCKET_NAME']
-      bucket.object(['store', id].join('/'))
+      unless Rails.env.test?
+        client = Aws::S3::Client.new(
+          access_key_id: ENV["S3_ACCESS_KEY_ID"],
+          secret_access_key: ENV['S3_SECRET_ACCESS_KEY'],
+          region: ENV['S3_REGION']
+        )
+        resource = Aws::S3::Resource.new(client: client)
+        bucket = resource.bucket ENV['S3_BUCKET_NAME']
+        bucket.object(['store', id].join('/'))
+      end
     end
 
   end

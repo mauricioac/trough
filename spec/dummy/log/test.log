@@ -1,0 +1,188 @@
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.8ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateDocuments (20150609160559)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "trough_documents" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "attachment_uid" varchar, "slug" varchar, "uploader" varchar, "description" text, "file_id" varchar, "file_filename" varchar, "file_size" integer, "file_content_type" varchar, "md5" varchar, "s3_url" varchar, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150609160559"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "trough_documents" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "attachment_uid" varchar, "slug" varchar, "uploader" varchar, "description" text, "file_id" varchar, "file_filename" varchar, "file_size" integer, "file_content_type" varchar, "md5" varchar, "s3_url" varchar, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.9ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar NOT NULL) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150609160559')
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "temporary"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mTrough::Document Load (1.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents"[0m
+  [1m[35mTrough::Document Load (0.2ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "temporary"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.2ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1
+  [1m[36mTrough::Document Load (0.1ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.2ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.1ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.2ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "6c3f68a6efe31490bc6672f9ae020ce28a1236fe9ce540797920cabae695"], ["created_at", "2015-06-29 11:29:58.696864"], ["updated_at", "2015-06-29 11:29:58.696864"]]
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (1.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "9cbaad57acf2989b9ad0ad5bc200f3623ef8bcda722fe0f966a75fcf0a98"], ["created_at", "2015-06-29 11:30:00.846159"], ["updated_at", "2015-06-29 11:30:00.846159"]]
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "d31d6d338524ae95ad3d1b71917086e4da36612de86b3774d427069a8263"], ["created_at", "2015-06-29 11:32:14.573021"], ["updated_at", "2015-06-29 11:32:14.573021"]]
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (1.2ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "b3d656e8e01f0547d3ffe971d3985d104d851ad1639fd6c7cc8c0edc5482"], ["created_at", "2015-06-29 11:35:33.778432"], ["updated_at", "2015-06-29 11:35:33.778432"]]
+  [1m[35m (0.1ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+  [1m[36m (0.4ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "16b446d863aa37a3734162e4a8734b82b4e44c1c0b9f505d03d4597d83a7"], ["created_at", "2015-06-29 11:36:11.319237"], ["updated_at", "2015-06-29 11:36:11.319237"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mTrough::Document Load (0.0ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Load (0.0ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image-1.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."slug" = 'image-1.png' AND "trough_documents"."id" != 1) LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' AND "trough_documents"."id" != 1) LIMIT 1
+  [1m[36m (0.5ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "9d6fff3238134843840448f4efe3f0fec1633f8c68525544508bf20c3b21"], ["created_at", "2015-06-29 11:36:25.137161"], ["updated_at", "2015-06-29 11:36:25.137161"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mTrough::Document Load (0.0ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image-1.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."slug" = 'image-1.png' AND "trough_documents"."id" != 1) LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' AND "trough_documents"."id" != 1) LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "trough_documents" ("file_size", "file_content_type", "file_filename", "md5", "slug", "file_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["file_size", 2764], ["file_content_type", "image/png"], ["file_filename", "image.png"], ["md5", "41165436fbfc2ea3f5b644e432c9d14d"], ["slug", "image.png"], ["file_id", "37542c92d4845de76b4052653b52fd1e2310e10b423c8769f8fec2fc841b"], ["created_at", "2015-06-29 11:36:25.147028"], ["updated_at", "2015-06-29 11:36:25.147028"]]
+  [1m[35m (0.0ms)[0m  RELEASE SAVEPOINT active_record_1
+  [1m[36mTrough::Document Load (0.0ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "image-1.png"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."slug" = 'image-1.png' AND "trough_documents"."id" != 1) LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE ("trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' AND "trough_documents"."id" != 1) LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mrollback transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "temporary"]]
+  [1m[35mTrough::Document Exists (0.2ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.1ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "temporary"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "temporary"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1
+  [1m[36mTrough::Document Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1[0m
+  [1m[36mTrough::Document Load (0.2ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "temporary"]]
+  [1m[35mTrough::Document Exists (0.2ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mTrough::Document Load (0.1ms)[0m  [1mSELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?[0m  [["slug", "image.png"]]
+  [1m[35mTrough::Document Exists (0.1ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'image.png' LIMIT 1
+  [1m[36mTrough::Document Exists (0.0ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" = '41165436fbfc2ea3f5b644e432c9d14d' LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mTrough::Document Load (0.1ms)[0m  SELECT "trough_documents".* FROM "trough_documents" WHERE "trough_documents"."slug" = ?  [["slug", "temporary"]]
+  [1m[36mTrough::Document Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."slug" = 'temporary' LIMIT 1[0m
+  [1m[35mTrough::Document Exists (0.0ms)[0m  SELECT  1 AS one FROM "trough_documents" WHERE "trough_documents"."md5" IS NULL LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mrollback transaction[0m
