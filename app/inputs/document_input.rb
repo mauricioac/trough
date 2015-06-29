@@ -26,4 +26,4 @@ class DocumentInput < Formtastic::Inputs::CheckBoxesInput
       builder.hidden_field(method)
     end
   end
-  end
+end
