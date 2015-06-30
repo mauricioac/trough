@@ -24,8 +24,9 @@ module Trough
 
     def create
       @new_document = true
-      @document.save
-      logger.info @document.errors.messages
+      if !@document.save && @document.errors[:md5]
+        @duplicate_document = Document.find_by(md5: @document.md5)
+      end
     end
 
     def destroy

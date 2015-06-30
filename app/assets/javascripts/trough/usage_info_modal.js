@@ -2,10 +2,10 @@ var DocumentInfoModal = (function () {
   "use strict";
 
   $(document).ready(function(){
-    $('[data-document-info-modal]').on('click', function (event) {
+    $('.cms-main').on('click', '[data-document-info-modal]', function (event) {
       event.preventDefault();
-      var openingLink = $(event.target);
-      $.get('/documents/' + openingLink.parent().data('document-info-modal') + '/info', function(data){
+      var openingLink = $(event.currentTarget);
+      $.get('/documents/' + openingLink.data('document-info-modal') + '/info', function(data){
         var compiled = _.template("\
           <h3>Description</h3>\
           <div class='document-description'> <%= data.description %> </div>\
