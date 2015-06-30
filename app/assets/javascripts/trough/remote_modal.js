@@ -50,12 +50,12 @@ var RemoteModal = (function () {
   function show(callback) {
     onCompleted = callback;
     if ($(".js-trough-modal").length === 0) {
-      var modalHtml = "<div class='modal fade trough-modal js-trough-modal' id='trough-modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'> \
-        <div class='modal-dialog'> \
-          <div class='modal-content'> \
-          </div> \
-        </div> \
-      </div>";
+      var modalHtml = "<div class='modal fade trough-modal js-trough-modal' id='trough-modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
+        "<div class='modal-dialog'>" +
+          "<div class='modal-content'>" +
+          "</div>" +
+        "</div>" +
+      "</div>";
       $('body').append(modalHtml);
     }
     openingLink = $(event.currentTarget);

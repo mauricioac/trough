@@ -4,9 +4,9 @@ $('#document-form').html("<%= escape_javascript render 'form' %>");
   $form = $("form#new_document");
   $(".js-file-uploaded").hide();
 <% else %>
-  <% if @duplicate_document.present?  %>
-    $("form#new_document").prepend("<div class='alert alert-info' role='alert'>\
-      Ooops, this file has already been uploaded.\
-      <a data-document-info-modal='<%= @duplicate_document.slug %>' href='#' class='duplicate-show'>Show</a></div>");
+  <% if @duplicate_document.present? %>
+    documentHelpers.showDuplicateDocumentAlert("<%= @duplicate_document.slug %>", function(slug){
+      DocumentInfoModal.show(slug);
+    });
   <% end %>
 <% end %>
