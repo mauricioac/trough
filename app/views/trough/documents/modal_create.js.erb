@@ -1,8 +1,13 @@
 <% if @document.errors.empty? %>
   RemoteModal.completed({ id: <%= @document.id %>, url: "<%= Trough::Engine.routes.url_helpers.document_path(@document) %>", name: "<%= @document.file_filename %>" });
 <% else %>
-  <% if @document.errors[:md5]  %>
-    $('#document-form').html("<%= escape_javascript render 'form' %>");
-    alert("Duplicate File!");
+  <% if @duplicate_document.present?  %>
+    documentHelpers.showDuplicateDocumentAlert("<%= @duplicate_document.slug %>", function(slug) {
+      RemoteModal.completed({
+        id: <%= @duplicate_document.id %>,
+        name: "<%= @duplicate_document.slug %>",
+        url: "/documents/<%= @duplicate_document.slug %>"
+      })
+    }, "Use this instead");
   <% end %>
 <% end %>
