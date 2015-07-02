@@ -43,7 +43,7 @@ module Trough
 
     def info
       @document = Document.find_by(slug: params[:id])
-      render json: @document, include: { document_usages: { include: { content_package: { only: [:name] } } } }
+      render json: @document, include: { document_usages: { include: { content_package: { only: [:name] } } } }, methods: :uploaded_on
     end
 
     def show

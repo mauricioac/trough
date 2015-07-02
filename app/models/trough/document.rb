@@ -93,6 +93,10 @@ module Trough
       document_usage.save
     end
 
+    def uploaded_on
+      created_at.strftime('%B %d, %Y')
+    end
+
     private
 
     def get_s3_object(id)

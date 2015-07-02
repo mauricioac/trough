@@ -12,7 +12,27 @@ var DocumentInfoModal = (function () {
   function show(slug) {
     $.get('/documents/' + slug + '/info', function(data) {
       var compiled = _.template(
-        "<h3>Description</h3>" +
+        "<div class='row'>" +
+          "<div class='col-md-5 col-md-offset-1'>" +
+            "<label class='col-primary'>Filename</label>" +
+            "<p><%= data.file_filename %></p>" +
+          "</div>" +
+          "<div class='col-md-5'>" +
+            "<label class='col-primary'>Filesize</label>" +
+            "<p><%= data.file_size %></p>" +
+          "</div>" +
+        "</div>" +
+        "<div class='row'>" +
+          "<div class='col-md-5 col-md-offset-1'>" +
+            "<label class='col-primary'>Author</label>" +
+            "<p><%= data.uploader %></p>" +
+          "</div>" +
+          "<div class='col-md-5'>" +
+            "<label class='col-primary'>Uploaded</label>" +
+            "<p><%= data.uploaded_on %></p>" +
+          "</div>" +
+        "</div>" +
+        "<label class='control-label'>description</label>" +
         "<div class='document-description'> <%= data.description %> </div>" +
         "<table id='usage_link_list' class='cms-table'>" +
         "<thead>" +
