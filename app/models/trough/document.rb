@@ -20,7 +20,7 @@ module Trough
       end
 
       def include_meta
-        select("trough_documents.*, 
+        select("trough_documents.*,
                (SELECT COUNT(*) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id AND trough_document_usages.active = 't')) AS active_document_usage_count,
                (SELECT SUM(trough_document_usages.download_count) FROM trough_document_usages WHERE (trough_document_usages.trough_document_id = trough_documents.id)) AS downloads_count")
       end

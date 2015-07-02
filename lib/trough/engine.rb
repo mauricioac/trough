@@ -29,6 +29,20 @@ module Trough
           config.redactor_plugins << 'documentPicker'
         end
       end
+
+      config.to_prepare do
+        ::Pig::Core::Plugins.register do |plugin|
+          plugin.name = "trough_documents"
+          plugin.title = "Documents"
+          plugin.url = proc { Trough::Engine.routes.url_helpers.documents_path }
+          plugin.preferred_position = 2
+          plugin.icon = 'file-archive-o'
+          plugin.active = Proc.new do |x|
+            x.assigns["documents"] && x.assigns["documents"].any?
+          end
+        end
+      end
+
     end
 
     rake_tasks do
