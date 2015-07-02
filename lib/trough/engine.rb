@@ -30,7 +30,7 @@ module Trough
         end
       end
 
-      config.to_prepare do
+      initializer "trough.register_pig_plugin" do
         ::Pig::Core::Plugins.register do |plugin|
           plugin.name = "trough_documents"
           plugin.title = "Documents"
