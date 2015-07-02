@@ -40,6 +40,7 @@ module Trough
           plugin.active = Proc.new do |x|
             x.assigns["documents"] && x.assigns["documents"].any?
           end
+          plugin.visible = Trough.configuration.permission
         end
       end
 
