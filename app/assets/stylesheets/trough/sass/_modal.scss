@@ -3,20 +3,6 @@
   ul.ui-autocomplete {
     position: absolute !important;
   }
-  .custom-combobox-toggle {
-    right: 30px;
-  }
-  .close {
-    float: right;
-    font-size: 21px;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
-    filter: alpha(opacity=20);
-    opacity: .2;
-    cursor: pointer;
-  }
   .modal-footer {
     overflow: hidden;
   }
@@ -27,4 +13,47 @@
 
 .document-description {
   margin-bottom: 20px;
+}
+.modal-header .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  width: 54px;
+  height: 54px;
+  text-align: center;
+  padding-top: 16px;
+  cursor: pointer;
+}
+.modal-body {
+  padding: 25px 30px;
+}
+
+.custom-combobox {
+  position: relative;
+  display: block;
+}
+.custom-combobox-toggle {
+  right: 1px;
+  margin: 0;
+  top: 1px;
+  background: white;
+  border-left: 1px solid #E2E2E2;
+  border-radius: 0 4px 4px 0;
+}
+
+#inside {
+  .ui-state-focus, .ui-state-hover {
+    background-color: white;
+    border-left: 1px solid #E2E2E2;
+  }
+}
+
+.document-modal {
+  .custom-combobox-input, #document_description_input {
+    margin-bottom: 30px;
+  }
+}
+.document-modal input[type="file"] {
+  padding: 18px 10px;
 }
