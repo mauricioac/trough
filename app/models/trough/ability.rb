@@ -5,7 +5,7 @@ module Trough
     def initialize(user)
 
       can [:show], Document
-      if user.try(:admin?)
+      if user.role_is?(:developer) || user.role_is?(:admin)
         can :manage, :all
       end
     end
