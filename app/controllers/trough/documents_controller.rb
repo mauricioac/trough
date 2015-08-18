@@ -1,8 +1,8 @@
 module Trough
-  class DocumentsController < ApplicationController
+  class DocumentsController < ::Trough::ApplicationController
 
     load_and_authorize_resource
-    skip_load_resource :only => [:show, :destroy, :info]
+    skip_load_resource only: [:show, :destroy, :info]
 
     before_action :prepare_new_document, only: [:index, :search]
 
@@ -24,14 +24,13 @@ module Trough
 
     def create
       @new_document = true
-      if !@document.save && @document.errors[:md5]
-        @duplicate_document = Document.find_by(md5: @document.md5)
-      end
+      return unless !@document.save && @document.errors[:md5]
+      @duplicate_document = Document.find_by(md5: @document.md5)
     end
 
     def destroy
       @document = Document.friendly.find(params[:id])
-      @d_id = @document.attributes["id"]
+      @d_id = @document.attributes['id']
       @document.destroy
     end
 

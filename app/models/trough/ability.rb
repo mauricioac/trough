@@ -4,7 +4,8 @@ module Trough
 
     def initialize(user)
 
-      can [:show], Document
+      can [:show], Trough::Document
+
       if user.role_is?(:developer) || user.role_is?(:admin)
         can :manage, :all
       end
