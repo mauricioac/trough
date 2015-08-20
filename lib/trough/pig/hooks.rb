@@ -2,12 +2,14 @@ module Trough
   module Pig
     module Hooks
       def update_document_usages
-        changed_chunks = content_chunks.select do |content_chunk|
-          content_chunk.changed? && content_chunk.content_attribute.field_type.in?(%w(document rich_content text))
+
+        changed_chunks = json_content['content_chunks'].select do |k, v|
+          v['field_type'].in?(%w(document rich_content text)) &&
+          v['value'] != json_content_was['content_chunks'][k]['value']
         end
 
-        changed_chunks.each do |changed_chunk|
-          send("determine_#{changed_chunk.content_attribute.field_type}_change", changed_chunk)
+        changed_chunks.each do |key, changed_chunk|
+          send("determine_#{changed_chunk['field_type']}_change", key, changed_chunk)
         end
 
         if deleted_at_changed?
@@ -19,7 +21,7 @@ module Trough
         end
       end
 
-      def determine_document_change(content_chunk)
+      def determine_document_change(key, content_chunk)
         if content_chunk.value_was.present?
           document_usage = DocumentUsage.find_or_initialize_by(
             trough_document_id: content_chunk.value_was,
@@ -33,13 +35,13 @@ module Trough
         end
       end
 
-      def determine_rich_content_change(content_chunk)
-        determine_text_change(content_chunk)
+      def determine_rich_content_change(key, content_chunk)
+        determine_text_change(key, content_chunk)
       end
 
-      def determine_text_change(content_chunk)
-        documents_in_old_text = find_documents(content_chunk.value_was)
-        documents_in_new_text = find_documents(content_chunk.value)
+      def determine_text_change(key, content_chunk)
+        documents_in_old_text = find_documents(json_content_was['content_chunks'][key]['value'])
+        documents_in_new_text = find_documents(json_content['content_chunks'][key]['value'])
 
         new_documents = documents_in_new_text - documents_in_old_text
         removed_documents = documents_in_old_text - documents_in_new_text
@@ -50,7 +52,7 @@ module Trough
           document.create_usage!(self.id)
         end
 
-        removed_documents .each do |doc|
+        removed_documents.each do |doc|
           document = Document.find_by(slug: doc)
           next if document.nil?
           document_usage = DocumentUsage.find_or_initialize_by(trough_document_id: document.id, pig_content_package_id: self.id)

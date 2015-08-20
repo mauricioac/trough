@@ -15,7 +15,7 @@
   });
 
 .container.cms-main#cms-style-container
-  =render('pig/content_packages/sitemap_header', header_title: 'Documents')
+  =render('pig/admin/content_packages/sitemap_header', header_title: 'Documents')
   .row
     .col-xs-12.documents
       #document-form.documents-form
@@ -32,8 +32,7 @@
             %th.documents-usage-column Used
             %th.documents-downloads-column Downloaded
         %tbody
-          -@documents.each do |document|
-            =render('document', document: document)
+          =render(@documents)
 
 #usageLinks.modal.fade
   .modal-dialog
