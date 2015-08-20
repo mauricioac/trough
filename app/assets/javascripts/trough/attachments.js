@@ -3,6 +3,7 @@ var attachments = (function () {
   $(document).on("upload:start", "form#new_document", function(event) {
     var $progress = $('.progress', event.currentTarget);
     var $progressBar = $('.progress-bar', $progress);
+    $("#document_description_label").slideDown();
     $("#document_description_input").slideDown();
     $progressBar.css("width", '10%');
   });

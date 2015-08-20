@@ -15,37 +15,33 @@
   });
 
 .container.cms-main#cms-style-container
-  =render('pig/content_packages/sitemap_header', header_title: 'Documents')
+  =render('pig/admin/content_packages/sitemap_header', header_title: 'Documents')
   .row
     .col-xs-12.documents
       #document-form.documents-form
         =render('form')
       = render('search')
-      %br
-      .documents-list-holder
-        %table.cms-table
-          %thead
-            %tr
-              %th.documents-name-column Name
-              %th.documents-link-column Description
-              %th.documents-usage-column Used
-              %th.documents-downloads-column Downloaded
-              %th.documents-delete-column Delete
-              %th
-                .sitemap-filter 
-                  =select_tag 'alpha-filter', options_for_select(['All'] + ('0'..'9').to_a + ('A'..'Z').to_a), class: 'noselectpicker'
-          %tbody
-            -@documents.each do |document|
-              =render('document', document: document)
+      .sitemap-filter.text-right
+        Filter documents:
+        =select_tag 'alpha-filter', options_for_select(['All'] + ('0'..'9').to_a + ('A'..'Z').to_a), class: 'noselectpicker'
+      %table.cms-table
+        %thead
+          %tr
+            %th.documents-name-column Name
+            %th.documents-link-column Description
+            %th.documents-usage-column Used
+            %th.documents-downloads-column Downloaded
+        %tbody
+          =render(@documents)
 
 #usageLinks.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
+        %a.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %i.fa.fa-times
         %h4.modal-title Document Usage
       .modal-body
-      .modal-footer
-        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
 
 #usageStats.modal.fade
   .modal-dialog

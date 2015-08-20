@@ -18,5 +18,3 @@
       = document.downloads_count
     - else
       0
-  %td.documents-delete-column
-    =link_to('Delete', document_path(document), method: :delete, remote: true, class: 'fa fa-trash-o document-delete', data: {confirm: 'Are you sure? This cannot be undone'} )
