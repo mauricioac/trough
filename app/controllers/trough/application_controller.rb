@@ -1,5 +1,5 @@
 module Trough
-  class ApplicationController < ::Pig::ApplicationController
+  class ApplicationController < ::Pig::Admin::ApplicationController
     before_action :merge_abilities
 
     protected
