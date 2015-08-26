@@ -9,8 +9,10 @@ module Trough
           end
         else
           changed_chunks = json_content['content_chunks'].select do |k, v|
+            new_value = v['value']
+            was_value = (json_content_was['content_chunks'][k] || {})['value']
             v['field_type'].in?(%w(document rich_content text)) &&
-            v['value'] != json_content_was['content_chunks'][k]['value']
+              was_value != new_value
           end
         end
 
