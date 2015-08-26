@@ -46,7 +46,7 @@ module Trough
       end
 
       def determine_text_change(key, content_chunk)
-        documents_in_old_text = json_content_was.empty? ? [] : find_documents(json_content_was['content_chunks'][key]['value'])
+        documents_in_old_text = json_content_was.empty? ? [] : find_documents((json_content_was['content_chunks'][key] || {})['value'])
         documents_in_new_text = find_documents(json_content['content_chunks'][key]['value'])
 
         new_documents = documents_in_new_text - documents_in_old_text
