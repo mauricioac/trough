@@ -4,11 +4,11 @@ module Trough
       def update_document_usages
 
         if json_content_was.empty?
-          changed_chunks = json_content['content_chunks'].select do |k, v|
+          changed_chunks = (json_content['content_chunks'] || {}).select do |k, v|
             v && v['field_type'].in?(%w(document rich_content text))
           end
         else
-          changed_chunks = json_content['content_chunks'].select do |k, v|
+          changed_chunks = (json_content['content_chunks'] || {}).select do |k, v|
             new_value = v['value']
             was_value = (json_content_was['content_chunks'][k] || {})['value']
             v['field_type'].in?(%w(document rich_content text)) &&
