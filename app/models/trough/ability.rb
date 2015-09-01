@@ -6,6 +6,8 @@ module Trough
 
       can [:show], Trough::Document
 
+      return unless user
+
       if user.role_is?(:developer) || user.role_is?(:admin)
         can :manage, :all
       end
