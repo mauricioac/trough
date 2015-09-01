@@ -55,7 +55,11 @@ module Trough
           usage.update_attribute(:download_count, usage.download_count + 1) if usage
         end
       end
-      redirect_to @document.s3_url
+      if @document
+        redirect_to @document.s3_url
+      else
+        redirect_to pig.not_found_url
+      end
     end
 
     def modal
