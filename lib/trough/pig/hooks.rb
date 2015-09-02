@@ -30,16 +30,21 @@ module Trough
       end
 
       def determine_document_change(key, content_chunk)
-        if content_chunk.value_was.present?
+        if json_content_was['content_chunks'] &&
+            json_content_was['content_chunks'][key] &&
+            json_content['content_chunks'] &&
+            json_content['content_chunks'][key] &&
+            json_content_was['content_chunks'][key] != json_content['content_chunks'][key]
+          old_document_id = json_content_was['content_chunks'][key]['value']
           document_usage = DocumentUsage.find_or_initialize_by(
-            trough_document_id: content_chunk.value_was,
-            pig_content_package_id: content_chunk.content_package.id
+            trough_document_id: old_document_id,
+            pig_content_package_id: id
           )
           document_usage.deactivate!
         end
-        if content_chunk.value.present?
-          document = Document.find(content_chunk.value)
-          document.create_usage!(self.id) if document
+        if content_chunk['value'].present?
+          document = Document.find(content_chunk['value'])
+          document.create_usage!(id) if document
         end
       end
 
