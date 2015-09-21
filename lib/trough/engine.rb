@@ -30,6 +30,12 @@ module Trough
         end
       end
 
+      config.after_initialize do
+        # There may be a better way of fixing this but we have to manually require the
+        # Pig types after initiazation to guarantee they are loaded in time for Pig
+        require "#{Trough::Engine.root}/app/types/document_type"
+      end
+
       initializer "trough.register_pig_plugin" do
         ::Pig::Core::Plugins.register do |plugin|
           plugin.name = "trough_documents"
