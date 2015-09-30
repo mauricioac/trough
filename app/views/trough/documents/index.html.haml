@@ -27,8 +27,12 @@
       %table.cms-table
         %thead
           %tr
-            %th.documents-name-column Name
-            %th.documents-link-column Description
+            %th.documents-name-column
+              =sortable 'slug', 'Name'
+            %th.documents-link-column
+              =sortable 'description'
+            %th.documents-usage-column
+              =sortable 'uploader', 'Uploaded by'
             %th.documents-usage-column Used
             %th.documents-downloads-column Downloaded
         %tbody

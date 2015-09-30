@@ -12,31 +12,6 @@ body.controller_documents {
     overflow: auto;
     padding-top: 0;
   }
-
-  // @include media-query(sm) {
-  //   .inputs {
-  //     width: 70%;
-  //     float: left;
-  //   }
-  //
-  //   label {
-  //     float: left;
-  //     width: 30%;
-  //     max-width: 120px;
-  //   }
-  //
-  //   .form-wrapper {
-  //     width: 70%;
-  //     float: left;
-  //   }
-  //
-  //   .form-actions {
-  //     width: 30%;
-  //     position: absolute;
-  //     bottom: 36px;
-  //     right: 30px;
-  //   }
-  // }
 }
 
 .documents-form {
@@ -67,7 +42,6 @@ body.controller_documents {
     }
   }
 }
-
 
 .documents-list-holder {
   font-size: 14px;
@@ -178,4 +152,8 @@ a.duplicate-show {
 .progress {
   background: #fff;
   box-shadow: none;
+}
+
+table th i.current {
+  padding-left: 10px;
 }

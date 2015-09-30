@@ -4,6 +4,8 @@
     =document.slug
   %td.documents-link-column
     =document.description.presence ? document.description.truncate(100) : ""
+  %td.documents-uploader-column
+    =document.uploader
   %td.documents-usage-column
     -if @new_document
       0
