@@ -9,8 +9,8 @@ var attachments = (function () {
   });
 
   $(document).on("upload:progress", "form#new_document", function(event) {
-    var detail = event.originalEvent.detail;
-    var percentage = Math.round( (detail.loaded / detail.total) * 100);
+    var progress = event.originalEvent.detail.progress;
+    var percentage = Math.round( (progress.loaded / progress.total) * 100);
     $('.progress-bar', event.currentTarget).css('width', percentage+'%');
   });
 
