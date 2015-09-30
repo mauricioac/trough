@@ -6,8 +6,11 @@ module Trough
 
     before_action :prepare_new_document, only: [:index, :search]
 
+    helper_method :sort_column, :sort_direction
+
     def index
-      @documents = Document.include_meta.all.order(:slug)
+      docs = Document.include_meta.all
+      @documents = docs.order("LOWER(NULLIF(#{sort_column}, '')) #{sort_direction}")
     end
 
     def search
@@ -24,6 +27,7 @@ module Trough
 
     def create
       @new_document = true
+      @document.uploader = current_user.full_name if current_user && current_user.full_name
       return unless !@document.save && @document.errors[:md5]
       @duplicate_document = Document.find_by(md5: @document.md5)
     end
@@ -70,7 +74,6 @@ module Trough
 
     def modal_create
       @document = Document.new(document_params)
-      @document.uploader = current_user
       if !@document.save && @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
       end
@@ -78,12 +81,20 @@ module Trough
 
     private
 
-      def document_params
-        params.require(:document).permit(:file, :slug, :description, :uploader)
-      end
+    def document_params
+      params.require(:document).permit(:file, :slug, :description)
+    end
 
-      def prepare_new_document
-        @document = Document.new
-      end
+    def prepare_new_document
+      @document = Document.new
+    end
+
+    def sort_column
+      Document.column_names.include?(params[:sort]) ? params[:sort] : 'slug'
+    end
+
+    def sort_direction
+      %w(asc desc).include?(params[:direction]) ? params[:direction] : 'asc'
+    end
   end
 end

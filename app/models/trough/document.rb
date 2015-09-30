@@ -27,7 +27,7 @@ module Trough
 
       def search(term)
         if term.present?
-          where(['slug iLIKE ?', "%#{term}%"])
+          where('slug iLIKE :term OR description iLIKE :term OR uploader iLIKE :term', term: "%#{term}%")
         else
           all
         end

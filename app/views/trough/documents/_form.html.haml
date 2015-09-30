@@ -5,8 +5,6 @@
     .progress
       .progress-bar{role: "progressbar", style: "width: 0%;"}
     =form.input :description, wrapper_html: { style: 'display:none' }
-    =form.input :uploader, value: current_user.full_name, as: :hidden
-
 
   =form.actions do
     =form.action :submit, label: 'Upload file', button_html: { class: 'btn btn-primary pull-right', disabled: true }
