@@ -24,6 +24,7 @@ module Trough
 
     def create
       @new_document = true
+      @document.uploader = current_user.full_name if current_user && current_user.full_name
       return unless !@document.save && @document.errors[:md5]
       @duplicate_document = Document.find_by(md5: @document.md5)
     end
@@ -70,7 +71,6 @@ module Trough
 
     def modal_create
       @document = Document.new(document_params)
-      @document.uploader = current_user
       if !@document.save && @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
       end
@@ -79,7 +79,7 @@ module Trough
     private
 
       def document_params
-        params.require(:document).permit(:file, :slug, :description, :uploader)
+        params.require(:document).permit(:file, :slug, :description)
       end
 
       def prepare_new_document
