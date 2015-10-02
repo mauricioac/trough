@@ -20,8 +20,8 @@ module Trough
           send("determine_#{changed_chunk['field_type']}_change", key, changed_chunk)
         end
 
-        if deleted_at_changed?
-          if deleted_at.present?
+        if archived_at_changed?
+          if archived_at.present?
             DocumentUsage.where(pig_content_package_id: id).each(&:deactivate!)
           else
             DocumentUsage.where(pig_content_package_id: id).each(&:activate!)
