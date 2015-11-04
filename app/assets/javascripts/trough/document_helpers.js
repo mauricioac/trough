@@ -1,8 +1,8 @@
 var documentHelpers = (function () {
   "use strict";
 
-  function showDuplicateDocumentAlert(slug, callback, linkText) {
-    $('<div/>', {
+  function showDuplicateDocumentAlert(slug, callback, linkText, target) {
+    var warning = $('<div/>', {
       class: "alert alert-info",
       role: "alert",
       text: "Ooops, this file has already been uploaded."
@@ -14,12 +14,18 @@ var documentHelpers = (function () {
           callback(slug);
         }
       }
-    })).prependTo("form#new_document");
+    }));
+
+    if(target) {
+      warning.prependTo(target);
+    } else {
+      warning.prependTo("form#new_document");
+    }
 
   }
 
   return {
-    showDuplicateDocumentAlert: showDuplicateDocumentAlert 
+    showDuplicateDocumentAlert: showDuplicateDocumentAlert
   };
 
 })();

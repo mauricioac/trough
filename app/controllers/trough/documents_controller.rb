@@ -2,7 +2,7 @@ module Trough
   class DocumentsController < ::Trough::ApplicationController
 
     load_and_authorize_resource
-    skip_load_resource only: [:show, :destroy, :info]
+    skip_load_resource only: [:show, :destroy, :info, :replace]
 
     before_action :prepare_new_document, only: [:index, :search]
 
@@ -33,7 +33,7 @@ module Trough
     end
 
     def destroy
-      @document = Document.friendly.find(params[:id])
+      @document = Document.find_by(slug: params[:id])
       @d_id = @document.attributes['id']
       @document.destroy
     end
@@ -42,6 +42,18 @@ module Trough
     end
 
     def update
+    end
+
+    def replace
+      @document = Document.find_by(slug: params[:id])
+      file_filename = @document.file_filename
+      file_params = JSON.parse(document_params[:file])
+      if @document.update(document_params)
+        flash[:notice] = "#{@document.file_filename} replaced"
+        @document.update_attribute(:file_filename, file_filename)
+      elsif @document.errors[:md5]
+        @duplicate_document = Document.find_by(md5: @document.md5)
+      end
     end
 
     def info
@@ -69,6 +81,11 @@ module Trough
     def modal
       @documents = Document.all
       @document = Document.new
+      render :layout => false
+    end
+
+    def replace_modal
+      @document = Document.find(params[:id])
       render :layout => false
     end
 

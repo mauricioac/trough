@@ -55,3 +55,12 @@
       .modal-body
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+
+#documentReplace.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %a.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %i.fa.fa-times
+        %h4.modal-title Replace Document
+      .modal-body

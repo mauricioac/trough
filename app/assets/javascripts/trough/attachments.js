@@ -1,6 +1,6 @@
 var attachments = (function () {
 
-  $(document).on("upload:start", "form#new_document", function(event) {
+  $(document).on("upload:start", "form#new_document, form#replace_document", function(event) {
     var $progress = $('.progress', event.currentTarget);
     var $progressBar = $('.progress-bar', $progress);
     $("#document_description_label").slideDown();
@@ -8,13 +8,13 @@ var attachments = (function () {
     $progressBar.css("width", '10%');
   });
 
-  $(document).on("upload:progress", "form#new_document", function(event) {
+  $(document).on("upload:progress", "form#new_document, form#replace_document", function(event) {
     var progress = event.originalEvent.detail.progress;
     var percentage = Math.round( (progress.loaded / progress.total) * 100);
     $('.progress-bar', event.currentTarget).css('width', percentage+'%');
   });
 
-  $(document).on("upload:complete", "form#new_document", function(event) {
+  $(document).on("upload:complete", "form#new_document, form#replace_document", function(event) {
     $form = $(event.currentTarget);
     $('#document_submit_action', $form).removeAttr('disabled');
   });

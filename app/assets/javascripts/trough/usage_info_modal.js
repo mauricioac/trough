@@ -7,6 +7,12 @@ var DocumentInfoModal = (function () {
       var openingLink = $(event.currentTarget);
       show(openingLink.data('document-info-modal'));
     });
+
+    $('body').on('click', '[data-replace-document]', function (event) {
+      event.preventDefault();
+      var openingLink = $(event.currentTarget);
+      showReplaceDocumentModal(openingLink.data('replace-document'));
+    });
   });
 
   function show(slug) {
@@ -50,6 +56,7 @@ var DocumentInfoModal = (function () {
           "</tr>" +
         "<% }); %>" +
         "</table>" +
+        "<button class='btn pull-left' data-replace-document='<%= data.id %>'><i class='fa fa-exchange'></i> Replace </button>" +
         "<a class='btn btn-primary pull-right' href=\"/documents/<%= data.slug %>\" ><i class='fa fa-download'></i> Download</a>" +
         "<a class='btn btn-error pull-right' href=''><i class='fa fa-trash-o'></i> Delete</a>" +
         "<div class='clearfix'></div>",
@@ -60,11 +67,13 @@ var DocumentInfoModal = (function () {
     $('#usageLinks').modal("show");
   }
 
+  function showReplaceDocumentModal(id) {
+    $('#usageLinks').modal("hide");
+    DocumentReplaceModal.show(id);
+  }
+
   return {
     show: show
   };
 
 })();
-
-// %td.documents-delete-column
-//   =link_to('Delete', document_path(document), method: :delete, remote: true, class: 'fa fa-trash-o document-delete', data: {confirm: 'Are you sure? This cannot be undone'} )

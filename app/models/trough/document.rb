@@ -4,11 +4,13 @@ module Trough
     has_many :document_usages, foreign_key: "trough_document_id"
 
     validates :file, presence: true
+    validate :file_content_type_cant_change, on: :update
     validates :slug, :md5, uniqueness: true
 
     # Define a refile attachment
     attachment :file
-    before_validation :set_md5, :set_slug
+    before_validation :set_md5
+    before_validation :set_slug, on: :create
     after_save :set_content_disposition,  :set_s3_url
 
     class << self
@@ -98,6 +100,12 @@ module Trough
     end
 
     private
+
+    def file_content_type_cant_change
+      if file_content_type_was != file_content_type
+        errors.add(:file_content_type, 'must be the same as the existing file')
+      end
+    end
 
     def get_s3_object(id)
       client = Aws::S3::Client.new(
