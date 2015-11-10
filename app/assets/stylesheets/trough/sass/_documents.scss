@@ -60,6 +60,9 @@ body.controller_documents {
   text-align: left;
   padding: 10px 10px 10px 0;
   word-break: break-word;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .documents-link-column {
@@ -67,12 +70,18 @@ body.controller_documents {
   text-align: left;
   padding: 10px;
   word-break: break-word;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .documents-usage-column, .documents-downloads-column {
   position: relative;
   text-align: center;
   width: 5%;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .documents-delete-column {

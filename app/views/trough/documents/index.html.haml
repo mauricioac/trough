@@ -21,9 +21,6 @@
       #document-form.documents-form
         =render('form')
       = render('search')
-      .sitemap-filter.text-right
-        Filter documents:
-        =select_tag 'alpha-filter', options_for_select(['All'] + ('0'..'9').to_a + ('A'..'Z').to_a), class: 'noselectpicker'
       %table.cms-table
         %thead
           %tr
