@@ -54,7 +54,7 @@ module Trough
     end
 
     def set_slug
-      escaped_name = file_filename ? file_filename.downcase.gsub(/[^0-9a-z. ]/, '').squish.gsub(' ', '-') : 'temporary'
+      escaped_name = file_filename ? file_filename.downcase.gsub(/[^0-9a-z-_. ]/, '').squish.gsub(' ', '-') : 'temporary'
       temp_slug = escaped_name.dup
       suffix = 1
       while Document.where(slug: temp_slug).present?
