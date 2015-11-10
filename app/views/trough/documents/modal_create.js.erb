@@ -1,5 +1,6 @@
 <% if @document.errors.empty? %>
   RemoteModal.completed({ id: <%= @document.id %>, url: "<%= Trough::Engine.routes.url_helpers.document_path(@document) %>", name: "<%= @document.file_filename %>" });
+  $('.document-row:last').after("<%= escape_javascript render 'document', :document => @document %>");
 <% else %>
   <% if @duplicate_document.present?  %>
     documentHelpers.showDuplicateDocumentAlert("<%= @duplicate_document.slug %>", function(slug) {

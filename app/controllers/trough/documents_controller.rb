@@ -36,6 +36,8 @@ module Trough
       @document = Document.find_by(slug: params[:id])
       @d_id = @document.attributes['id']
       @document.destroy
+      flash[:notice] = "Document deleted."
+      redirect_to documents_path
     end
 
     def edit

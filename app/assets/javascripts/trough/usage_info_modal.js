@@ -58,7 +58,7 @@ var DocumentInfoModal = (function () {
         "</table>" +
         "<button class='btn pull-left' data-replace-document='<%= data.id %>'><i class='fa fa-exchange'></i> Replace </button>" +
         "<a class='btn btn-primary pull-right' href=\"/documents/<%= data.slug %>\" ><i class='fa fa-download'></i> Download</a>" +
-        "<a class='btn btn-error pull-right' href=''><i class='fa fa-trash-o'></i> Delete</a>" +
+        "<a class='btn btn-error pull-right' href=\"/documents/<%= data.slug %>\" data-method='delete' href=''><i class='fa fa-trash-o'></i> Delete</a>" +
         "<div class='clearfix'></div>",
         {variable: 'data'});
       $('#usageLinks .modal-body').html(compiled(data));
