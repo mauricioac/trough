@@ -85,7 +85,8 @@ module Trough
         copy_source: [object.bucket.name, object.key].join('/'),
         metadata_directive: 'REPLACE',
         metadata: object.metadata,
-        content_disposition: "attachment\; filename='#{file_filename}'"
+        content_type: file_content_type,
+        content_disposition: "attachment\; filename=\"#{file_filename}\""
       )
     end
 
