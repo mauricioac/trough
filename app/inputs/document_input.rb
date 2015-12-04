@@ -5,7 +5,7 @@ class DocumentInput < Formtastic::Inputs::CheckBoxesInput
   def to_html
     input_wrapping do
       document_id = builder.object.send(method)
-      document = Trough::Document.find(builder.object.send(method)) if document_id.present?
+      document = Trough::Document.find_by_id(builder.object.send(method)) if document_id.present?
       input_html = ''
 
       input_html << <<-EOS
