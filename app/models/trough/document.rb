@@ -86,7 +86,7 @@ module Trough
         metadata_directive: 'REPLACE',
         metadata: object.metadata,
         content_type: file_content_type,
-        content_disposition: "attachment\; filename=\"#{file_filename}\""
+        content_disposition: "inline\; filename=\"#{file_filename}\""
       )
     end
 
