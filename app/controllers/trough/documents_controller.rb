@@ -96,6 +96,7 @@ module Trough
       if !@document.save && @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
       end
+      @document = Document.include_meta.find(@document.id)
     end
 
     private
