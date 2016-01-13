@@ -3,6 +3,7 @@ if (!RedactorPlugins) var RedactorPlugins = {};
 RedactorPlugins.documentPicker = function()
 {
   return {
+    highlightedTitle: "",
     init: function()
     {
       var button = this.button.add('document-picker', 'Add Document');
@@ -14,9 +15,10 @@ RedactorPlugins.documentPicker = function()
       var self = this;
       // Save the redactor cursor position so we can restore it when the modal closes
       self.selection.save();
+      this.documentPicker.highlightedTitle = self.selection.getText()
       RemoteModal.show(function(document) {
         var node = $('<a />');
-        node.html(document.name);
+        node.html(self.documentPicker.highlightedTitle || document.name);
         node.attr('href', document.url);
 
         //Add a marker to the node
