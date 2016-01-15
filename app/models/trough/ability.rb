@@ -7,8 +7,7 @@ module Trough
       can [:show], Trough::Document
 
       return unless user
-
-      if user.role.in?(%w( developer admin editor author ))
+      if user.role.in?(%w( developer admin editor author ) << Trough.configuration.extra_roles)
         can :manage, Trough::Document
         can :manage, Trough::DocumentUsage
       end
