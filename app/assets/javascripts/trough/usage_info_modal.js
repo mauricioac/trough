@@ -40,6 +40,12 @@ var DocumentInfoModal = (function () {
         "</div>" +
         "<label class='col-primary'>description</label>" +
         "<div class='document-description'> <%= data.description %> </div>" +
+        "<div class='row'>" +
+        "<div class='col-sm-12'>" +
+        "<label class='col-primary'>Share URL</label>" +
+        "<p><input disabled value='<%= data.share_url %>'/></p>" +
+        "</div>" +
+        "</div>" +
         "<table id='usage_link_list' class='cms-table'>" +
         "<thead>" +
           "<tr>" +
