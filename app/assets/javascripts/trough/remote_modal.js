@@ -58,7 +58,6 @@ var RemoteModal = (function () {
       "</div>";
       $('body').append(modalHtml);
     }
-    openingLink = $(event.currentTarget);
     $('#trough-modal').modal('show');
   }
 

@@ -18,8 +18,10 @@ RedactorPlugins.documentPicker = function()
       this.documentPicker.highlightedTitle = self.selection.getText()
       RemoteModal.show(function(document) {
         var node = $('<a />');
-        node.html(self.documentPicker.highlightedTitle || document.name);
-        node.attr('href', document.url);
+        var title = self.documentPicker.highlightedTitle || document.name
+        var url = document.url;
+        node.html(title);
+        node.attr('href', url);
 
         //Add a marker to the node
         var marker = self.selection.getMarker();
@@ -32,6 +34,7 @@ RedactorPlugins.documentPicker = function()
         self.insert.htmlWithoutClean(container.html());
 
         //Show the redactor link modal
+        self.link.set(title, url)
         self.link.show();
       });
     }
