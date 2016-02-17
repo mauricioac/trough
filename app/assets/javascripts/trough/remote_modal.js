@@ -6,7 +6,7 @@ var RemoteModal = (function () {
     $('.js-open-trough-modal').on('click', function (event) {
       show(function(document) {
         documentSelected(document.id, document.url, document.name);
-      });
+      }, $(event.currentTarget));
     });
 
     $('body').on('shown.bs.modal', '#trough-modal', function(event){
@@ -47,7 +47,7 @@ var RemoteModal = (function () {
     document_input.find('.js-trough-document-name').html(document_name);
   }
 
-  function show(callback) {
+  function show(callback, $openingLink) {
     onCompleted = callback;
     if ($(".js-trough-modal").length === 0) {
       var modalHtml = "<div class='modal fade trough-modal js-trough-modal' id='trough-modal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>" +
@@ -58,6 +58,7 @@ var RemoteModal = (function () {
       "</div>";
       $('body').append(modalHtml);
     }
+    openingLink = $openingLink;
     $('#trough-modal').modal('show');
   }
 
