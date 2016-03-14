@@ -34,7 +34,6 @@ RedactorPlugins.documentPicker = function()
         self.insert.htmlWithoutClean(container.html());
 
         //Show the redactor link modal
-        self.link.set(title, url)
         self.link.show();
       });
     }
