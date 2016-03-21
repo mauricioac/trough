@@ -17,6 +17,15 @@ var DocumentInfoModal = (function () {
 
   function show(slug) {
     $.get('/documents/' + slug + '/info', function(data) {
+      var canDelete = !(_.any(data.document_usages, "active"));
+      var delete_button = "";
+      if(canDelete) {
+        delete_button = "<a class='btn btn-error pull-right' href=\"/documents/<%= data.slug %>\" data-method='delete' href=''><i class='fa fa-trash-o'></i> Delete</a>"
+      }
+      else {
+        delete_button = "<strong>The document can't be deleted until all active usages have been removed</strong>"
+      }
+
       var compiled = _.template(
         "<div class='row'>" +
           "<div class='col-md-6'>" +
@@ -62,9 +71,9 @@ var DocumentInfoModal = (function () {
           "</tr>" +
         "<% }); %>" +
         "</table>" +
+        delete_button +
         "<button class='btn pull-left' data-replace-document='<%= data.id %>'><i class='fa fa-exchange'></i> Replace </button>" +
         "<a class='btn btn-primary pull-right' href=\"/documents/<%= data.slug %>\" ><i class='fa fa-download'></i> Download</a>" +
-        "<a class='btn btn-error pull-right' href=\"/documents/<%= data.slug %>\" data-method='delete' href=''><i class='fa fa-trash-o'></i> Delete</a>" +
         "<div class='clearfix'></div>",
         {variable: 'data'});
       $('#usageLinks .modal-body').html(compiled(data));
