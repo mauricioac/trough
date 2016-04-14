@@ -67,7 +67,8 @@ module Trough
 
     def show
       uri = URI(request.referer || "")
-      @document = Document.find_by(slug: params[:id])
+      # attempt to find document by slug without file extension, if unable to find with it
+      @document = Document.find_by(slug: params[:id]) || Document.find_by(slug: params[:id].split('.')[0...-1].join('.'))
       if GemHelper.gem_loaded?(:pig)
         permalink = ::Pig::Permalink.find_from_url(uri.path)
         if permalink

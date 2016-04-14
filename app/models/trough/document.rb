@@ -53,8 +53,14 @@ module Trough
       end
     end
 
-    def set_slug
-      escaped_name = file_filename ? file_filename.downcase.gsub(/[^0-9a-z-_. ]/, '').squish.gsub(' ', '-') : 'temporary'
+    # TODO: remove temporary fix_for_extensions required for running from console
+    def set_slug(fix_for_extensions=false)
+      if Trough.configuration.show_file_extensions
+        filename = file_filename
+      else
+        filename = file_filename.split('.')[0...-1].join('.')
+      end
+      escaped_name = filename ? filename.downcase.gsub(/[^0-9a-z-_. ]/, '').squish.gsub(' ', '-') : 'temporary'
       temp_slug = escaped_name.dup
       suffix = 1
       while Document.where(slug: temp_slug).present?
@@ -63,7 +69,11 @@ module Trough
         temp_slug.insert(escaped_name.rindex('.') || escaped_name.length-1, "-#{suffix}")
         suffix += 1
       end
-      write_attribute(:slug, temp_slug)
+      if fix_for_extensions
+        update_column(:slug, temp_slug)
+      else
+        write_attribute(:slug, temp_slug)
+      end
     end
 
     def set_md5
