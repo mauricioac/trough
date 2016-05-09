@@ -12,7 +12,7 @@ module Trough
         can :manage, Trough::DocumentUsage
       end
 
-      if user.role.in?(%w( editor author ))
+      if user.role.in?(%w( author ))
         cannot :destroy, Trough::Document
       end
     end
