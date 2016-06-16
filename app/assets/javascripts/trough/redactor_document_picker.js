@@ -17,7 +17,7 @@ RedactorPlugins.documentPicker = function()
       self.selection.save();
       this.documentPicker.highlightedTitle = self.selection.getText();
       RemoteModal.show(function(document) {
-        var node = $('<a />');
+        var node = $('<a class="document-link"/>');
         var title = self.documentPicker.highlightedTitle || document.name
         var url = document.url;
         node.html(title);
