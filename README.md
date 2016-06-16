@@ -22,6 +22,14 @@ Trough.setup do |config|
 end
 ```
 
+### Add mount point to routes file
+
+Put this line above the pig engine mount line in `config/routes.rb`
+
+```
+mount Trough::Engine => "/"
+```
+
 ### Set S3 Environment Variables
 
 Add Figaro so can use dev env vars
