@@ -60,7 +60,7 @@ module Trough
       while Document.where(slug: temp_slug).present?
         temp_slug = escaped_name.dup
         # Ensure the suffix comes before the file extension
-        temp_slug.insert(escaped_name.rindex('.') || escaped_name.length-1, "-#{suffix}")
+        temp_slug.insert(escaped_name.rindex('.') || escaped_name.length, "-#{suffix}")
         suffix += 1
       end
       write_attribute(:slug, temp_slug)
