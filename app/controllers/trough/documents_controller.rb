@@ -60,12 +60,15 @@ module Trough
 
     def info
       @document = Document.find_by(slug: params[:id])
-      render json: @document, include: { document_usages: { include: { content_package: { only: [:name] } } } }, methods: :uploaded_on
+      json = @document.as_json(include: { document_usages: { include: { content_package: { only: [:name] } } } }, methods: :uploaded_on)
+      json["share_url"] = trough.document_url(@document)
+      render json: json.to_json
     end
 
     def show
       uri = URI(request.referer || "")
-      @document = Document.find_by(slug: params[:id])
+      # attempt to find document by slug without file extension, if unable to find with it
+      @document = Document.find_by(slug: params[:id]) || Document.find_by(slug: params[:id].split('.')[0...-1].join('.'))
       if GemHelper.gem_loaded?(:pig)
         permalink = ::Pig::Permalink.find_from_url(uri.path)
         if permalink
@@ -96,6 +99,8 @@ module Trough
       @document.uploader = current_user.full_name if current_user && current_user.full_name
       if !@document.save && @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
+      else
+        @document = Document.include_meta.find(@document.id)
       end
     end
 

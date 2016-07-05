@@ -76,7 +76,7 @@ module Trough
       def find_documents(value)
         # Find all links to /documents/:slug and return the slugs
         return [] if value.nil?
-        value.scan(/href=\S*\/documents\/(\S+[^\\])\\?['"]/).flatten
+        value.scan(/href=\S*\/documents\/(\S+[^\\])\\?['"]>/).flatten
       end
 
       def unlink_document_usages
