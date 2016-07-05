@@ -93,6 +93,7 @@ module Trough
 
     def modal_create
       @document = Document.new(document_params)
+      @document.uploader = current_user.full_name if current_user && current_user.full_name
       if !@document.save && @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
       end
