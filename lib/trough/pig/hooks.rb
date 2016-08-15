@@ -76,7 +76,19 @@ module Trough
       def find_documents(value)
         # Find all links to /documents/:slug and return the slugs
         return [] if value.nil?
-        value.scan(/href=\S*\/documents\/(\S+[^\\])\\?['"]>/).flatten
+        html = Nokogiri::HTML(value)
+        links = find_links_for_documents(html)
+        grab_slugs_from_links(links)
+      end
+
+      def find_links_for_documents(html)
+        html.xpath("//a[contains(@href, '/documents/')]")
+      end
+
+      def grab_slugs_from_links(links)
+        links.map do |link|
+          link[:href].split("/documents/").last
+        end
       end
 
       def unlink_document_usages
