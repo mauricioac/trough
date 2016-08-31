@@ -60,7 +60,7 @@ module Trough
       else
         filename = file_filename.split('.')[0...-1].join('.')
       end
-      escaped_name = filename ? filename.downcase.gsub(/[^0-9a-z-_. ]/, '').squish.gsub(' ', '-') : 'temporary'
+      escaped_name = filename ? filename.downcase.gsub(/[^0-9a-z\-_. ]/, '').squish.gsub(' ', '-') : 'temporary'
       temp_slug = escaped_name.dup
       suffix = 1
       while Document.where(slug: temp_slug).present?
