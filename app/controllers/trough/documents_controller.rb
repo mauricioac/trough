@@ -28,8 +28,9 @@ module Trough
     def create
       @new_document = true
       @document.uploader = current_user.full_name if current_user && current_user.full_name
-      return unless !@document.save && @document.errors[:md5]
-      @duplicate_document = Document.find_by(md5: @document.md5)
+
+      return if @document.save
+      @duplicate_document = Document.find_by(md5: @document.md5) if @document.errors[:md5]
     end
 
     def destroy
