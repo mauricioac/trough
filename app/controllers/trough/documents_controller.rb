@@ -61,7 +61,7 @@ module Trough
 
     def info
       @document = Document.find_by(slug: params[:id])
-      json = @document.as_json(include: { document_usages: { include: { content_package: { only: [:name] } } } }, methods: :uploaded_on)
+      json = @document.as_json(include: { document_usages: { include: { unscoped_content_package: { only: [:name] } } } }, methods: :uploaded_on)
       json["share_url"] = trough.document_url(@document)
       render json: json.to_json
     end
