@@ -49,11 +49,8 @@ module Trough
 
     def replace
       @document = Document.find_by(slug: params[:id])
-      file_filename = @document.file_filename
-      file_params = JSON.parse(document_params[:file])
       if @document.update(document_params)
         flash[:notice] = "#{@document.file_filename} replaced"
-        @document.update_attribute(:file_filename, file_filename)
       elsif @document.errors[:md5]
         @duplicate_document = Document.find_by(md5: @document.md5)
       end
