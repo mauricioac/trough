@@ -3,7 +3,7 @@ module Trough
     module Hooks
       def update_document_usages
 
-        json_content_was = versions.last.reify.json_content
+        json_content_was = get_previous_value("json_content")
 
         if json_content_was.empty?
           changed_chunks = (json_content['content_chunks'] || {}).select do |k, v|
@@ -22,7 +22,7 @@ module Trough
           send("determine_#{changed_chunk['field_type']}_change", key, changed_chunk)
         end
 
-        if versions.last.reify.archived_at != archived_at
+        if get_previous_value("archived_at") != archived_at
           if archived_at.present?
             DocumentUsage.where(pig_content_package_id: id).each(&:deactivate!)
           else
@@ -32,7 +32,7 @@ module Trough
       end
 
       def determine_document_change(key, content_chunk)
-        json_content_was = versions.last.reify.json_content
+        json_content_was = get_previous_value("json_content")
         if json_content_was['content_chunks'] &&
             json_content_was['content_chunks'][key] &&
             json_content['content_chunks'] &&
@@ -56,7 +56,7 @@ module Trough
       end
 
       def determine_text_change(key, content_chunk)
-        json_content_was = versions.last.reify.json_content
+        json_content_was = get_previous_value("json_content")
         documents_in_old_text = json_content_was.empty? ? [] : find_documents((json_content_was['content_chunks'][key] || {})['value'])
         documents_in_new_text = find_documents(json_content['content_chunks'][key]['value'])
 
@@ -97,6 +97,15 @@ module Trough
 
       def unlink_document_usages
         DocumentUsage.where(pig_content_package_id: id).each(&:unlink_content_package!)
+      end
+
+      def get_previous_value(field)
+        if versions && versions.last
+          ret = versions.last.reify.send(field)
+        else
+          ret = send(field)
+        end
+        return ret
       end
     end
   end
