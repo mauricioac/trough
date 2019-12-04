@@ -64,17 +64,20 @@ module Trough
         removed_documents = documents_in_old_text - documents_in_new_text
 
         new_documents.each do |doc|
-          document = Document.find_by(slug: doc)
+          slug = File.basename(doc,File.extname(doc)) # Remove extension 
+          document = Document.find_by(slug: slug)
           next if document.nil?
           document.create_usage!(self.id)
         end
 
         removed_documents.each do |doc|
-          document = Document.find_by(slug: doc)
+          slug = File.basename(doc,File.extname(doc)) # Remove extension 
+          document = Document.find_by(slug: slug)
           next if document.nil?
           document_usage = DocumentUsage.find_or_initialize_by(trough_document_id: document.id, pig_content_package_id: self.id)
           document_usage.deactivate! if document_usage
         end
+
       end
 
       def find_documents(value)
