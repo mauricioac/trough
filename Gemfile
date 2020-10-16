@@ -12,3 +12,6 @@ gemspec
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
+
+gem "refile", git: "https://github.com/refile/refile", branch: "master"
+gem "refile-s3", git: "https://github.com/refile/refile-s3", branch: "master"
