@@ -121,7 +121,7 @@ module Trough
     private
 
     def file_content_type_cant_change
-      if file_content_type_was != file_content_type
+      if file_content_type_before_last_save != file_content_type
         errors.add(:file_content_type, 'must be the same as the existing file')
       end
     end

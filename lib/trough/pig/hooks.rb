@@ -3,16 +3,16 @@ module Trough
     module Hooks
       def update_document_usages
 
-        json_content_was = get_previous_value("json_content")
+        json_content_before_last_save = get_previous_value("json_content")
 
-        if json_content_was.empty?
+        if json_content_before_last_save.empty?
           changed_chunks = (json_content['content_chunks'] || {}).select do |k, v|
             v && v['field_type'].in?(%w(document rich_content text))
           end
         else
           changed_chunks = (json_content['content_chunks'] || {}).select do |k, v|
             new_value = v['value']
-            was_value = (json_content_was['content_chunks'][k] || {})['value']
+            was_value = (json_content_before_last_save['content_chunks'][k] || {})['value']
             v['field_type'].in?(%w(document rich_content text)) &&
               was_value != new_value
           end
@@ -32,13 +32,13 @@ module Trough
       end
 
       def determine_document_change(key, content_chunk)
-        json_content_was = get_previous_value("json_content")
-        if json_content_was['content_chunks'] &&
-            json_content_was['content_chunks'][key] &&
+        json_content_before_last_save = get_previous_value("json_content")
+        if json_content_before_last_save['content_chunks'] &&
+            json_content_before_last_save['content_chunks'][key] &&
             json_content['content_chunks'] &&
             json_content['content_chunks'][key] &&
-            json_content_was['content_chunks'][key] != json_content['content_chunks'][key]
-          old_document_id = json_content_was['content_chunks'][key]['value']
+            json_content_before_last_save['content_chunks'][key] != json_content['content_chunks'][key]
+          old_document_id = json_content_before_last_save['content_chunks'][key]['value']
           document_usage = DocumentUsage.find_or_initialize_by(
             trough_document_id: old_document_id,
             pig_content_package_id: id
@@ -56,22 +56,22 @@ module Trough
       end
 
       def determine_text_change(key, content_chunk)
-        json_content_was = get_previous_value("json_content")
-        documents_in_old_text = json_content_was.empty? ? [] : find_documents((json_content_was['content_chunks'][key] || {})['value'])
+        json_content_before_last_save = get_previous_value("json_content")
+        documents_in_old_text = json_content_before_last_save.empty? ? [] : find_documents((json_content_before_last_save['content_chunks'][key] || {})['value'])
         documents_in_new_text = find_documents(json_content['content_chunks'][key]['value'])
 
         new_documents = documents_in_new_text - documents_in_old_text
         removed_documents = documents_in_old_text - documents_in_new_text
 
         new_documents.each do |doc|
-          slug = File.basename(doc,File.extname(doc)) # Remove extension 
+          slug = File.basename(doc,File.extname(doc)) # Remove extension
           document = Document.find_by(slug: slug)
           next if document.nil?
           document.create_usage!(self.id)
         end
 
         removed_documents.each do |doc|
-          slug = File.basename(doc,File.extname(doc)) # Remove extension 
+          slug = File.basename(doc,File.extname(doc)) # Remove extension
           document = Document.find_by(slug: slug)
           next if document.nil?
           document_usage = DocumentUsage.find_or_initialize_by(trough_document_id: document.id, pig_content_package_id: self.id)
